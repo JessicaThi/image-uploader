@@ -59,8 +59,8 @@ Introduce your projects by taking a screenshot or a gif. Try to tell visitors a 
 
 This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/O2iGT9yBd6xZBrOcVirx) was to build an application to complete the given user stories :
 
-- [ ] I can drag and drop an image to upload it
-- [ ] I can choose to select an image from my folder
+- [x] I can drag and drop an image to upload it
+- [x] I can choose to select an image from my folder
 - [ ] I can see a loader when uploading
 - [ ] When the image is uploaded, I can see the image and copy it
 - [ ] I can choose to copy to clipboard

@@ -58,9 +58,13 @@ h1 {
     margin-top: 0.75rem;
 }
 
-.content-image {
+.btn p {
+    margin: 0;
+}
+
+.dropzone-area {
     background-color: #F6F8FB;
-    border: 1px dashed #97BEF4;
+    border: 2px dashed #97BEF4;
     border-radius: 0.75rem;
     padding: 2.25rem 4rem;
     margin: 2rem 0 1.125rem;
