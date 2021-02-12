@@ -8,8 +8,10 @@ import axios from 'axios';
 
 
 function App() {
+  const API_URL = 'http://localhost:3200'
   const [files, setFiles] = useState([]);
   const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [textToCopy, setTextToCopy] = useState(null);
 
 
   const { acceptedFiles, getRootProps, getInputProps} = useDropzone({
@@ -53,7 +55,7 @@ function App() {
       }
     }
 
-    axios.post('http://localhost:3200/api/files', data, options)
+    axios.post(`${API_URL}/api/files`, data, options)
     .then((res) => {
       this.setState({uploadPercentage: 100}, () => {
         setTimeout(() => {
@@ -73,7 +75,6 @@ function App() {
     <div className="App">
       <div className="content-upload">
         <h1>Upload your image</h1>
-        { uploadPercentage > 0 ?  <progress id="file" max="100" value={uploadPercentage}>{uploadPercentage}</progress> : "" }
         <p className="text-3">Files should be Jpeg, Png,...</p>
           <div {...getRootProps({className: 'dropzone-area'})}>
             <input {...getInputProps()} />
@@ -81,6 +82,7 @@ function App() {
             <p className="text-4">Drag & Drop your image here</p>
           </div>
         <aside>
+          { files.length ? <input type="test" value={`${API_URL}/${files[0].path}`} onClick={() => {setTextToCopy(navigator.clipboard.writeText(`${API_URL}/${files[0].path}`))}} /> : "" } 
           { uploadPercentage > 0 ?  <progress id="file" max="100" value={uploadPercentage}>{uploadPercentage}</progress> : "" }
           { thumbs }
         </aside>
