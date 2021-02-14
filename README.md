@@ -38,7 +38,7 @@
 
 ## Overview
 
-![screenshot](https://github.com/JessicaThi/image-uploader/tree/main/src/img/demo.png)
+![demo](https://github.com/JessicaThi/image-uploader/blob/main/src/img/demo.png)
 
 Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
