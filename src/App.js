@@ -1,20 +1,19 @@
 import './App.css';
 import { useState, useEffect } from "react"
-import placeholderImage from './img/image.svg'
-//import Dropzone from 'react-dropzone'
-import {useDropzone} from 'react-dropzone';
-import DropzoneWithoutDrag from './components/DropzoneWithoutDrag';
+import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
+import Upload from "./components/Upload"
+import Uploading from './components/Uploading';
+import Uploaded from './components/Uploaded';
 
 
 function App() {
   const API_URL = 'http://localhost:3200'
   const [files, setFiles] = useState([]);
   const [uploadPercentage, setUploadPercentage] = useState(0);
-  const [textToCopy, setTextToCopy] = useState(null);
+  const [status, setStatus] = useState("upload"); 
 
-
-  const { acceptedFiles, getRootProps, getInputProps} = useDropzone({
+  const { acceptedFiles, open, getRootProps, getInputProps} = useDropzone({
     noClick: true,
     accept: 'image/*',
     onDrop: acceptedFiles => {
@@ -30,16 +29,18 @@ function App() {
     }
   }, [acceptedFiles])
 
-  const thumbs = files.map(file => (
-    <img
-      src={file.preview}
-      key={file.name}
-      alt={file.name}
-    />
-  ));
+  useEffect(() => {
+    if (uploadPercentage === 100) {
+      setStatus('uploaded')
+      setTimeout(() => {
+        setUploadPercentage(0);
+      }, 1000)
+    }
+  }, [uploadPercentage])
 
   const uploadFile = (acceptedFiles) => {
-    console.log( acceptedFiles[0]);
+    setStatus('uploading')
+
     let data = new FormData();
     data.append( 'file', acceptedFiles[0])
 
@@ -57,38 +58,23 @@ function App() {
 
     axios.post(`${API_URL}/api/files`, data, options)
     .then((res) => {
-      this.setState({uploadPercentage: 100}, () => {
-        setTimeout(() => {
-          setUploadPercentage(0);
-        }, 1000)
-      })
+      setUploadPercentage(100)
     })
     .catch(error => console.error(`Error: ${error}`));
   }
 
-  useEffect(() => () => {
-    // Make sure to revoke the data uris to avoid memory leaks
-    files.forEach(file => URL.revokeObjectURL(file.preview));
-  }, [files]);
-
   return (
     <div className="App">
       <div className="content-upload">
-        <h1>Upload your image</h1>
-        <p className="text-3">Files should be Jpeg, Png,...</p>
-          <div {...getRootProps({className: 'dropzone-area'})}>
-            <input {...getInputProps()} />
-            <img src={placeholderImage} alt="icon for upload" />
-            <p className="text-4">Drag & Drop your image here</p>
-          </div>
-        <aside>
-          { files.length ? <input type="test" value={`${API_URL}/${files[0].path}`} onClick={() => {setTextToCopy(navigator.clipboard.writeText(`${API_URL}/${files[0].path}`))}} /> : "" } 
-          { uploadPercentage > 0 ?  <progress id="file" max="100" value={uploadPercentage}>{uploadPercentage}</progress> : "" }
-          { thumbs }
-        </aside>
-        <p className="text-4">Or</p>
-        {/* <button className="btn">Choose a file</button> */}
-        <DropzoneWithoutDrag />
+        { status === "upload" ? 
+          <Upload getRootProps={getRootProps} getInputProps={getInputProps} open={open} /> : ""
+        }
+        { status === "uploading" ?          
+          <Uploading uploadPercentage={uploadPercentage} /> : ""
+        }
+        { status === "uploaded" ? 
+          <Uploaded files={files} API_URL={API_URL} /> : ""
+        }
       </div>
     </div>
   );
