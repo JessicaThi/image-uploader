@@ -27,6 +27,8 @@
 }
 
 .content-upload {
+    width: 100%;
+    max-width: 25rem;
     box-shadow: 0px 4px 12px 0px rgba(000, 000, 000, 0.1);
     border-radius: 0.75rem;
     padding: 2rem;
@@ -56,6 +58,7 @@ h1 {
     border: none;
     cursor: pointer;
     margin-top: 0.75rem;
+    white-space: nowrap;
 }
 
 .btn p {
@@ -68,4 +71,52 @@ h1 {
     border-radius: 0.75rem;
     padding: 2.25rem 4rem;
     margin: 2rem 0 1.125rem;
+}
+
+.content-uploading h1 {
+    text-align: left;
+}
+
+progress {
+    -webkit-appearance: none;
+    height: 0.375rem;
+    width: 100%;
+    margin: 1rem 0 1.1rem;
+}
+
+::-webkit-progress-bar {
+    background-color: #F2F2F2;
+    border-radius: 1rem;
+}
+  
+::-webkit-progress-value {
+background-color: #2F80ED;
+border-radius: 1rem;
+}
+
+.content-uploaded img {
+    width: 100%;
+    border-radius: 0.75rem;
+    margin: 1rem 0 1.5rem;
+}
+
+.content-link {
+    display: flex;
+    background: #F6F8FB;
+    border: 1px solid #E0E0E0;
+    border-radius: 0.5rem;
+    margin-bottom: 0.7rem;
+}
+
+.content-link input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-size: 0.75rem;
+    padding: 0 0.5rem;
+    text-overflow: ellipsis;
+}
+
+.content-link .btn {
+    margin: 0.125rem;
 }
