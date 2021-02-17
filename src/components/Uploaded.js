@@ -40,7 +40,7 @@ export default function Uploaded({files, API_URL}) {
                 <div className="content-link">
                     <input type="text" value={`${API_URL}/${files[0].path}`}  /> 
                     <CopyToClipboard text={`${API_URL}/${files[0].path}`}>
-                        <button className="btn">Copy to clipboard</button>
+                        <button className="btn">Copy link</button>
                     </CopyToClipboard>
                 </div>
             : "" } 
