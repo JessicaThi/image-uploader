@@ -1,11 +1,10 @@
-import { React, useState, useEffect} from 'react'
+import { React, useEffect } from 'react'
 import Lottie from 'react-lottie'
 import animationData from './../lotties/validation'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 
 export default function Uploaded({files, API_URL}) {
-    const [setTextToCopy] = useState(null);
-
     const thumbs = files.map(file => (
         <img
             src={file.preview}
@@ -40,7 +39,9 @@ export default function Uploaded({files, API_URL}) {
             { files.length ? 
                 <div className="content-link">
                     <input type="text" value={`${API_URL}/${files[0].path}`}  /> 
-                    <button className="btn" onClick={() => {setTextToCopy(navigator.clipboard.writeText(`${API_URL}/${files[0].path}`))}}>Copy link</button>
+                    <CopyToClipboard text={`${API_URL}/${files[0].path}`}>
+                        <button className="btn">Copy to clipboard</button>
+                    </CopyToClipboard>
                 </div>
             : "" } 
         </div>
