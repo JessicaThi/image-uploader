@@ -12,6 +12,7 @@ function App() {
   const [files, setFiles] = useState([]);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [status, setStatus] = useState("upload"); 
+  const [imageUrl, setImageUrl] = useState(null);
 
   const { acceptedFiles, open, getRootProps, getInputProps} = useDropzone({
     noClick: true,
@@ -59,6 +60,7 @@ function App() {
     axios.post(`${API_URL}/api/files`, data, options)
     .then((res) => {
       setUploadPercentage(100)
+      setImageUrl(res.data.fileLocation);
     })
     .catch(error => console.error(`Error: ${error}`));
   }
@@ -73,7 +75,7 @@ function App() {
           <Uploading uploadPercentage={uploadPercentage} /> : ""
         }
         { status === "uploaded" ? 
-          <Uploaded files={files} API_URL={API_URL} /> : ""
+          <Uploaded files={files} API_URL={API_URL} imageUrl={imageUrl}/> : ""
         }
       </div>
     </div>

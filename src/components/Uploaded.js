@@ -4,10 +4,10 @@ import animationData from './../lotties/validation'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 
-export default function Uploaded({files, API_URL}) {
+export default function Uploaded({files, API_URL, imageUrl}) {
     const thumbs = files.map(file => (
         <img
-            src={file.preview}
+            src={imageUrl}
             key={file.name}
             alt={file.name}
         />
@@ -22,11 +22,6 @@ export default function Uploaded({files, API_URL}) {
         }
     };
 
-    useEffect(() => () => {
-        // Make sure to revoke the data uris to avoid memory leaks
-        files.forEach(file => URL.revokeObjectURL(file.preview));
-      }, [files]);
-
     return (
         <div className="content-uploaded">
             <Lottie 
@@ -38,8 +33,8 @@ export default function Uploaded({files, API_URL}) {
             { thumbs }
             { files.length ? 
                 <div className="content-link">
-                    <input type="text" value={`${API_URL}/${files[0].path}`}  /> 
-                    <CopyToClipboard text={`${API_URL}/${files[0].path}`}>
+                    <input type="text" value={imageUrl}  /> 
+                    <CopyToClipboard text={imageUrl}>
                         <button className="btn">Copy link</button>
                     </CopyToClipboard>
                 </div>
