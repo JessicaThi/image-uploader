@@ -1,17 +1,17 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const { Storage } = require('@google-cloud/storage');
-const multer = require('multer');
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const { Storage } = require("@google-cloud/storage");
+const multer = require("multer");
 const port = process.env.API_PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-app.get('/', (req, res) => res.send('Welcome to this file upload API :)'));
+app.get("/", (req, res) => res.send("Welcome to this file upload API :)"));
 
 // Create new storage instance with Firebase project credentials
 const storage = new Storage({
@@ -31,10 +31,10 @@ const uploader = multer({
 });
 
 // Upload endpoint to send file to Firebase storage bucket
-app.post('/api/files', uploader.single('file'), async (req, res, next) => {
+app.post("/api/files", uploader.single("file"), async (req, res, next) => {
   try {
     if (!req.file) {
-      res.status(400).send('Error, could not upload file');
+      res.status(400).send("Error, could not upload file");
       return;
     }
 
@@ -48,9 +48,9 @@ app.post('/api/files', uploader.single('file'), async (req, res, next) => {
       },
     });
 
-    blobWriter.on('error', (err) => next(err));
+    blobWriter.on("error", (err) => next(err));
 
-    blobWriter.on('finish', () => {
+    blobWriter.on("finish", () => {
       // Assembling public URL for accessing the file via HTTP
       const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
         bucket.name
