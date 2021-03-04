@@ -16,7 +16,11 @@ app.get("/", (req, res) => res.send("Welcome to this file upload API :)"));
 // Create new storage instance with Firebase project credentials
 const storage = new Storage({
   projectId: process.env.GCLOUD_PROJECT_ID,
-  keyFilename: process.env.GCLOUD_APPLICATION_CREDENTIALS,
+  credentials: {
+    client_id: process.env.GCLOUD_CLIENT_ID,
+    client_email: process.env.GCLOUD_CLIENT_EMAIL,
+    private_key: process.env.GCLOUD_PRIVATE_KEY,
+  },
 });
 
 // Create a bucket associated to Firebase storage bucket

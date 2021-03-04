@@ -60,7 +60,7 @@ function App() {
     };
 
     axios
-      .post(`${process.env.API_URL}/api/files`, data, options)
+      .post(`${process.env.REACT_APP_API_URL}/api/files`, data, options)
       .then((res) => {
         setUploadPercentage(100);
         setImageUrl(res.data.fileLocation);
