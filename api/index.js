@@ -70,6 +70,10 @@ app.post("/api/files", uploader.single("file"), async (req, res, next) => {
   }
 });
 
-app.listen(port, () =>
-  console.log(`File uploader API listening on port ${port}`)
-);
+// if (process.env.NODE_ENV === "development") {
+//   app.listen(port, () =>
+//     console.log(`File uploader API listening on port ${port}`)
+//   );
+// }
+
+module.exports = app;
