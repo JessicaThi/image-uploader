@@ -2,7 +2,7 @@ import Lottie from "react-lottie";
 import animationData from "./../lotties/validation";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-export default function Uploaded({ files, API_URL, imageUrl }) {
+export default function Uploaded({ files, imageUrl }) {
   const thumbs = files.map((file) => (
     <img src={imageUrl} key={file.name} alt={file.name} />
   ));
