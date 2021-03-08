@@ -8,7 +8,6 @@ import Uploaded from './components/Uploaded';
 
 
 function App() {
-  const API_URL = 'http://localhost:3200'
   const [files, setFiles] = useState([]);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [status, setStatus] = useState("upload"); 
@@ -57,7 +56,7 @@ function App() {
       }
     }
 
-    axios.post(`${API_URL}/api/files`, data, options)
+    axios.post(`${process.env.REACT_APP_API_URL}/api/files`, data, options)
     .then((res) => {
       setUploadPercentage(100)
       setImageUrl(res.data.fileLocation);
@@ -75,7 +74,7 @@ function App() {
           <Uploading uploadPercentage={uploadPercentage} /> : ""
         }
         { status === "uploaded" ? 
-          <Uploaded files={files} API_URL={API_URL} imageUrl={imageUrl}/> : ""
+          <Uploaded files={files} API_URL={process.env.REACT_APP_API_URL} imageUrl={imageUrl}/> : ""
         }
       </div>
     </div>
